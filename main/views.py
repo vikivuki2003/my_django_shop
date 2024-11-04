@@ -11,8 +11,8 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Home - Главная'
-        context['content'] = "Магазин мебели HOME"
+        context['title'] = 'Naomi - Main'
+        context['content'] = "Shop Naomi"
         return context
 
 
@@ -21,9 +21,26 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Home - О нас'
-        context['content'] = "О нас"
-        context['text_on_page'] = "Текст о том почему этот магазин такой классный, и какой хороший товар."
+        context['title'] = 'Naomi - About us'
+        context['content'] = "About us"
+        return context
+
+class DeliveryPaymentView(TemplateView):
+    template_name = 'main/delivery_payment.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Naomi - Delivery and Payment'
+        context['content'] = "Delivery and Payment options"
+        return context
+
+class ContactView(TemplateView):
+    template_name = 'main/contact.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Naomi - Contacts'
+        context['content'] = "Contact information"
         return context
     
 

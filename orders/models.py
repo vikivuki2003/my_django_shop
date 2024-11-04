@@ -22,7 +22,7 @@ class Order(models.Model):
     delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки")
     payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
     is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
-    status = models.CharField(max_length=50, default='В обработке', verbose_name="Статус заказа")
+    status = models.CharField(max_length=50, default='In processing', verbose_name="Статус заказа")
 
     class Meta:
         db_table = "order"
@@ -55,4 +55,4 @@ class OrderItem(models.Model):
         return round(self.product.sell_price() * self.quantity, 2)
 
     def __str__(self):
-        return f"Товар {self.name} | Заказ № {self.order.pk}"
+        return f"Good {self.name} | Order № {self.order.pk}"

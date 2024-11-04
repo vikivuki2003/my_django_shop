@@ -26,8 +26,8 @@ class Migration(migrations.Migration):
                 ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
             ],
             options={
-                'verbose_name': 'Корзина',
-                'verbose_name_plural': 'Корзина',
+                'verbose_name': 'Cart',
+                'verbose_name_plural': 'Cart',
                 'db_table': 'cart',
             },
         ),

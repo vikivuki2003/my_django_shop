@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('delivery_address', models.TextField(blank=True, null=True, verbose_name='Адрес доставки')),
                 ('payment_on_get', models.BooleanField(default=False, verbose_name='Оплата при получении')),
                 ('is_paid', models.BooleanField(default=False, verbose_name='Оплачено')),
-                ('status', models.CharField(default='В обработке', max_length=50, verbose_name='Статус заказа')),
+                ('status', models.CharField(default='In processing', max_length=50, verbose_name='Статус заказа')),
                 ('user', models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_DEFAULT, to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
             ],
             options={

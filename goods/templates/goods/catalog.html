@@ -9,11 +9,11 @@
 
 {% block content %}
 <div class="row">
-    <!-- Форма фильтров -->
+
     <div class="dropdown mb-2">
         <button class="btn btn-secondary dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            Фильтры
+            Filters
         </button>
 
         <form action="{% if request.GET.q %}{% url "catalog:search" %}{% else %}{% url "catalog:index" slug_url %}{% endif %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
@@ -23,44 +23,44 @@
                     <input type="hidden" name="q" value="{{ request.GET.q }}">
                 {% endif %}
                 <label class="form-check-label" for="flexCheckDefault">
-                    Товары по акции
+                    Product on sale
                 </label>
             </div>
-            <p class="text-white mx-3 mt-3">Сортировать:</p>
+            <p class="text-white mx-3 mt-3">Sort:</p>
             <div class="form-check text-white mx-3">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default"
                 {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}>
                 <label class="form-check-label" for="flexRadioDefault1">
-                    По умолчанию
+                    By default
                 </label>
             </div>
             <div class="form-check text-white mx-3">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price" 
                 {% if request.GET.order_by == 'price' %}checked{% endif %}>
                 <label class="form-check-label" for="flexRadioDefault2">
-                    От дешевых к дорогим
+                    From cheap to expensive
                 </label>
             </div>
             <div class="form-check text-white mx-3">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price"
                 {% if request.GET.order_by == '-price' %}checked{% endif %}>
                 <label class="form-check-label" for="flexRadioDefault3">
-                    От дорогих к дешевым
+                    From expensive to cheap
                 </label>
             </div>
-            <button type="submit" class="btn btn-primary mx-3 mt-3">Применить</button>
+            <button type="submit" class="btn btn-primary mx-3 mt-3">Apply</button>
         </form>
     </div>
 
     {% if request.GET.q %}
-    <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}</h3>
+    <h3 class="mt-4">Search results for the query {{ request.GET.q }}</h3>
     {% if not goods %}
         <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-        <h2 class="mt-4">По запросу ничего не найдено</h2>
+        <h2 class="mt-4">Nothing was found for the query</h2>
     {% endif %}
     {% endif %}
     {% for product in goods %}
-        <!-- Карта товара -->
+
         <div class="col-lg-4 col-md-6 p-4">
             <div class="card border-primary rounded custom-shadow">
                 {% if product.image %}
@@ -85,7 +85,7 @@
                             {% if product.bodyline %}
                             {{product.bodyline|truncatechars:100}}
                             {% else %}
-                            {{ product.description|truncatechars:35 }}
+                            {{ product.description|truncatechars:190 }}
                             {% endif %}
                         {% endautoescape %}
                     </p>
@@ -95,7 +95,7 @@
                         {% if product.discount %}
                             <p><s>{{product.price}}</s> $</p>
                             <p><strong>{{ product.sell_price }} $</strong></p>
-                            <span class="badge bg-warning text-dark">Скидка {{ product.discount }} %</span>
+                            <span class="badge bg-warning text-dark">Sale {{ product.discount }} %</span>
                         {% else %}
                             <p><strong>{{ product.price }} $</strong></p>
                         {% endif %}
@@ -115,14 +115,14 @@
 
 
 </div>
-<!-- Пагинация -->
+
 {% if goods %}
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center my-4">
             <div class="custom-shadow d-flex">
 
                 <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
-                <a class="page-link" href="{% if page_obj.has_previous %}?{% change_params page=page_obj.previous_page_number %}{% else %}#{% endif %}">Назад</a>
+                <a class="page-link" href="{% if page_obj.has_previous %}?{% change_params page=page_obj.previous_page_number %}{% else %}#{% endif %}">Previos</a>
                 </li>
 
                 {% for page in page_obj.paginator.page_range %}
@@ -135,7 +135,7 @@
 
 
                 <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
-                    <a class="page-link" href="{% if page_obj.has_next %}?{% change_params page=page_obj.next_page_number %}{% else %}#{% endif %}">Следующая</a>
+                    <a class="page-link" href="{% if page_obj.has_next %}?{% change_params page=page_obj.next_page_number %}{% else %}#{% endif %}">Next</a>
                 </li>
             </div>
         </ul>
@@ -147,7 +147,7 @@
 {% block footer %}
 <footer class="py-4 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Home Python Hub Studio 2023 - 2024</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Naomi 2024</p>
     </div>
 </footer>
 {% endblock  %}

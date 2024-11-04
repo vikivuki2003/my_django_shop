@@ -5,3 +5,12 @@ footer {
     background-color: #343a40;
     padding: 10px 0;
   }
+
+.content {
+    color: #291212;
+    font-size: 6rem;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    margin: 0 auto;
+    padding: 20px;
+}

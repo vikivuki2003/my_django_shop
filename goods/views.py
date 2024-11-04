@@ -40,7 +40,7 @@ class CatalogView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Home - Каталог"
+        context["title"] = "Naomi - Catalog"
         context["slug_url"] = self.kwargs.get(self.slug_url_kwarg)
         return context
 

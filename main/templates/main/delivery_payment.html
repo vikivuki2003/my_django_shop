@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
+    <style>
+    .custom-paragraph {
+        margin: 20px auto;
+        padding: 0px;
+        margin-top: 15px;
+        width: 50%;
+    }
+</style>
+{% endblock %}
+
+{% block modal_cart %}
+{% include "includes/cart_button.html" %}
+{% endblock  %}
+
+<style>
+    .custom-background {
+        padding: 15px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+
+{% block content %}
+    <div class="custom-background bg-white custom-shadow rounded">
+        <div class="container" style="max-width: 800px; margin-top: 80px; margin-bottom: 90px;>
+            <div class=" row
+        ">
+        <div class="col-md-20">
+            <div class="p-4 text-left">
+                <h2 class="custom-paragraph"><strong>{{ content }}</strong></h2>
+                <p>We offer the following delivery options for your convenience:</p>
+                <ul>
+                    <li><strong>Standard Delivery:</strong> Delivered within 5-7 business days.</li>
+                    <li><strong>Express Delivery:</strong> Delivered within 2-3 business days.</li>
+                    <li><strong>Same Day Delivery:</strong> Available in select areas for orders placed by 12 PM.</li>
+                    <li><strong>Pick-Up:</strong> Convenient pick-up option available from our store.</li>
+                </ul>
+                <div class="section">
+                    <h2 class="custom-paragraph"><strong>Payment Options</h2>
+                    <p>You can choose from the following payment methods:</p>
+                    <ul>
+                        <li><strong>Credit/Debit Card:</strong> We accept Visa, MasterCard, American Express, and
+                            Discover.
+                        </li>
+                        <li><strong>PayPal:</strong> Quick and secure payment through your PayPal account.</li>
+                        <li><strong>Apple Pay:</strong> Convenient payment option for Apple device users.</li>
+                        <li><strong>Bank Transfer:</strong> Direct bank transfers are also accepted.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+<footer class="py-4 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Naomi 2024</p>
+    </div>
+</footer>
+{% endblock %}
+
+
