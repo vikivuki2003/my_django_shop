@@ -3,22 +3,113 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'deps/css/my_footer_css.css' %}">
+    <style>
+        .content-container {
+            margin-bottom: 150px;
+        }
+
+        .centered-title {
+            color: #291212;
+            text-align: center;
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .product-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 15px;
+            width: calc(25% - 20px);
+            text-align: center;
+            transition: transform 0.2s;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .centered-text {
+            text-align: left;
+            flex: 1;
+        }
+
+        .btn {
+            margin-top: 10px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2b2d30;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .product-description-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .catalog-container {
+            margin-left: 20px;
+        }
+    </style>
 {% endblock %}
 
 {% block modal_cart %}
-{% include "includes/cart_button.html" %}
-{% endblock  %}
+    {% include "includes/cart_button.html" %}
+{% endblock %}
 
 {% block content %}
-    <h1 class="content mt-16 pt-10"><strong>{{ content }}</strong></h1>
+    <div class="content-container">
+        <h1 class="content mt-16 pt-10"><strong>{{ content }}</strong></h1>
+    </div>
+
+    <div class="product-description-container">
+
+        <div class="catalog-container">
+            <h2 class="centered-title"><strong>Our products:</strong></h2>
+            <ul class="product-list">
+                {% for product in products %}
+                    <li class="product-item">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}"/>
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.description|truncatewords:3 }}</p>
+                        <p>Price: {{ product.price }} $.</p>
+                        <a href="{% url 'goods:product' product.slug %}" class="btn">Details</a>
+                    </li>
+                {% empty %}
+                    <li>There are no products.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
 
 {% block footer %}
-<footer class="py-4 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Shop Naomi 2024</p>
-    </div>
-</footer>
+    <footer class="py-4 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Shop Naomi 2024</p>
+        </div>
+    </footer>
 {% endblock %}
-
 
