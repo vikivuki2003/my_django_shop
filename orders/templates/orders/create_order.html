@@ -64,15 +64,7 @@ a delivery</label>
                                 <label class="form-check-label" for="id_requires_delivery">Pickup</label>
                             </div>
                         </div>
-                        <div class="mb-3" id="deliveryAddressField">
-                            <label for="id_delivery_address" class="form-label">Delivery Address*:</label>
-                            <textarea class="form-control" id="id_delivery_address"
-                                value="{% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}"
-                                name="delivery_address" rows="2"></textarea>
-                            {% if form.delivery_address.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{form.delivery_address.errors}}</div>
-                            {% endif %}
-                        </div>
+
                         <div class="col-md-12 mb-3">
                             <label class="form-label">Payment method</label>
                             <div class="form-check form-check-inline">
@@ -92,7 +84,7 @@ upon receipt</label>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-dark">Place an order</button>
+                    <a href="{% url 'payment:checkout' %}" class="btn btn-dark">Place an order</a>
                 </form>
             </div>
         </div>

@@ -13,7 +13,6 @@ class CreateOrderForm(forms.Form):
             ("1", True),
             ],
         )
-    delivery_address = forms.CharField(required=False)
     payment_on_get = forms.ChoiceField(
         choices=[
             ("0", 'False'),
