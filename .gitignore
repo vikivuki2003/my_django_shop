@@ -11,3 +11,4 @@ cache/
 #django stuff
 db.sqlite3
 media/
+.env

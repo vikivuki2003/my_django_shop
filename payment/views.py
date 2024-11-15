@@ -1,24 +1,34 @@
+import os
+
 from django.contrib import messages
-from django.contrib.sites import requests
+import requests
 from django.shortcuts import render, get_object_or_404, redirect
 
+from app.settings import BASE_DIR
 from orders.models import Order
 from payment.forms import CheckoutForm
 from payment.models import PaymentMethod
+from msilib.schema import Environment
+
+from environ import Env
+env = Env()
+env_path = os.path.join(BASE_DIR, '.env')
+env.read_env(env_path)
+STRIPE_SECRET = env('STRIPE_SECRET_KEY')
 
 
 def shipping(request):
     ...
 
 def checkout(request):
-    # Получаем все заказы пользователя со статусом 'In processing'
+
     orders = Order.objects.filter(user=request.user, status='In processing')
 
-    if orders.exists():  # Проверяем, есть ли заказы
-        order = orders.first()  # Получаем первый заказ
+    if orders.exists():
+        order = orders.first()
     else:
         messages.error(request, 'У вас нет активных заказов.')
-        return redirect('some-view')  # Перенаправление на другую страницу
+        return redirect('some-view')
 
     payment_methods = PaymentMethod.objects.all()
 
@@ -57,19 +67,36 @@ def complete_order(request):
 
 def handle_error(request, message):
     messages.error(request, message)
-    return redirect('some-view')
+    print(message)
+    return redirect('payment:checkout')
 
 def process_stripe_payment(order, request):
     try:
-        response = requests.post('https://api.stripe.com/v1/charges', data={
-            'amount': order.total_amount,
-            'currency': 'usd',
-            'source': request.POST.get('stripe_token'),
-            'description': 'Order Payment'
-        })
+        # Получаем токен из запроса
+        token = request.POST.get('stripe_token')
+        if not token:
+            return handle_error(request, "Токен Stripe не был предоставлен.")
 
+        # Устанавливаем заголовки для запроса
+        headers = {
+            'Authorization': f'Bearer {STRIPE_SECRET}',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+
+        # Выполняем запрос на оплату
+        response = requests.post('https://api.stripe.com/v1/charges', data={
+            'amount': order.payment_on_get,
+            'currency': 'usd',
+            'source': token,
+            'description': 'Order Payment'
+        }, headers=headers)  # Не забывайте добавить заголовки
+
+        # Обработка ответа от Stripe
         if response.status_code == 200:
             return redirect('payment:payment_success')
+        else:
+            error_message = response.json().get('error', {}).get('message', 'Неизвестная ошибка')
+            return handle_error(request, f"Ошибка от Stripe: {error_message}")
 
     except Exception as e:
         return handle_error(request, f"Ошибка обработки платежа: {str(e)}")
